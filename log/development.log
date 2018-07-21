@@ -1,0 +1,1098 @@
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateHistories (20170703175956)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "histories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "picture" varchar, "content" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170703175956"]]
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to DeviseCreateUsers (20180630001509)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180630001509"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-06-30 00:21:08.525103"], ["updated_at", "2018-06-30 00:21:08.525103"]]
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+Started GET "/" for 127.0.0.1 at 2018-06-29 20:26:04 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (6.5ms)
+  Rendered shared/_navbar.html.erb (0.7ms)
+Completed 200 OK in 590ms (Views: 567.4ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/sign_in" for 127.0.0.1 at 2018-06-29 20:26:26 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/sign_in"):
+  
+actionpack (5.1.2) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.2) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.2) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.2) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.2) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.2) lib/rails/engine.rb:522:in `call'
+puma (3.9.1) lib/puma/configuration.rb:224:in `call'
+puma (3.9.1) lib/puma/server.rb:602:in `handle_request'
+puma (3.9.1) lib/puma/server.rb:435:in `process_client'
+puma (3.9.1) lib/puma/server.rb:299:in `block in run'
+puma (3.9.1) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-06-29 20:26:55 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.5ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (42.5ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 96ms (Views: 70.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2018-06-29 20:27:05 -0400
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.9ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (5.0ms)
+  Rendered shared/_navbar.html.erb (0.6ms)
+Completed 200 OK in 40ms (Views: 38.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-29 20:27:09 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (2.1ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 30ms (Views: 27.3ms | ActiveRecord: 0.2ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddUserToHistory (20180630003623)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "histories" ADD "user_id" integer[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_histories_on_user_id" ON "histories" ("user_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180630003623"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_histories_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_histories_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+Started GET "/histories/new" for 127.0.0.1 at 2018-06-29 20:38:42 -0400
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HistoriesController#new as HTML
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (7.9ms)
+  Rendered histories/new.html.erb within layouts/application (10.9ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 54ms (Views: 39.1ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-29 20:38:45 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (3.0ms)
+  Rendered shared/_navbar.html.erb (0.7ms)
+Completed 200 OK in 47ms (Views: 42.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-06-29 20:40:28 -0400
+Processing by HistoriesController#new as HTML
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (3.9ms)
+  Rendered histories/new.html.erb within layouts/application (6.3ms)
+  Rendered shared/_navbar.html.erb (0.5ms)
+Completed 200 OK in 59ms (Views: 35.1ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-29 20:40:31 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.7ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 43ms (Views: 38.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-06-29 20:40:52 -0400
+Processing by HistoriesController#new as HTML
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (2.6ms)
+  Rendered histories/new.html.erb within layouts/application (5.0ms)
+  Rendered shared/_navbar.html.erb (0.5ms)
+Completed 200 OK in 43ms (Views: 39.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-06-29 20:40:59 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.8ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 42ms (Views: 37.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/todos" for 127.0.0.1 at 2018-06-29 20:43:12 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/todos"):
+  
+actionpack (5.1.2) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.2) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.2) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.2) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.2) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.2) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.2) lib/rails/engine.rb:522:in `call'
+puma (3.9.1) lib/puma/configuration.rb:224:in `call'
+puma (3.9.1) lib/puma/server.rb:602:in `handle_request'
+puma (3.9.1) lib/puma/server.rb:435:in `process_client'
+puma (3.9.1) lib/puma/server.rb:299:in `block in run'
+puma (3.9.1) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddFieldToUsers (20180630005917)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "name" varchar[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "username" varchar[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "admin" boolean[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180630005917"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_histories_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_histories_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+Started GET "/" for 127.0.0.1 at 2018-06-29 21:31:07 -0400
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (1.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (4.8ms)
+  Rendered shared/_navbar.html.erb (0.7ms)
+Completed 200 OK in 74ms (Views: 62.3ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 18:01:14 -0400
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (1.3ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (6.6ms)
+Completed 500 Internal Server Error in 304ms (ActiveRecord: 1.7ms)
+
+
+  
+ActionView::Template::Error (require_tree argument must be a directory):
+     6: 
+     7:     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     8:     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous">
+     9:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    10: 
+    11:     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    12: 
+  
+app/assets/javascripts/cable.js:6
+app/views/layouts/application.html.erb:9:in `_app_views_layouts_application_html_erb__863998001473242866_70092280536500'
+Started GET "/" for 127.0.0.1 at 2018-07-20 18:23:08 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.3ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.7ms)
+Completed 500 Internal Server Error in 23ms (ActiveRecord: 0.3ms)
+
+
+  
+ActionView::Template::Error (require_tree argument must be a directory):
+     6: 
+     7:     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     8:     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous">
+     9:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    10: 
+    11:     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    12: 
+  
+app/assets/javascripts/cable.js:6
+app/views/layouts/application.html.erb:9:in `_app_views_layouts_application_html_erb__863998001473242866_70092307473180'
+Started GET "/" for 127.0.0.1 at 2018-07-20 18:46:53 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.6ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (require_tree argument must be a directory):
+     6: 
+     7:     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     8:     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous">
+     9:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    10: 
+    11:     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    12: 
+  
+app/assets/javascripts/cable.js:6
+app/views/layouts/application.html.erb:9:in `_app_views_layouts_application_html_erb__863998001473242866_70092311683580'
+Started GET "/" for 127.0.0.1 at 2018-07-20 19:01:59 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.5ms)
+Completed 500 Internal Server Error in 28ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (require_tree argument must be a directory):
+     6: 
+     7:     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     8:     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous">
+     9:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    10: 
+    11:     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    12: 
+  
+app/assets/javascripts/cable.js:6
+app/views/layouts/application.html.erb:9:in `_app_views_layouts_application_html_erb__863998001473242866_70092311658080'
+Started GET "/" for 127.0.0.1 at 2018-07-20 19:03:58 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (3.9ms)
+Completed 500 Internal Server Error in 284ms (ActiveRecord: 0.8ms)
+
+
+  
+ActionView::Template::Error (require_tree argument must be a directory):
+     6: 
+     7:     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     8:     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous">
+     9:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    10: 
+    11:     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    12: 
+  
+app/assets/javascripts/cable.js:6
+app/views/layouts/application.html.erb:9:in `_app_views_layouts_application_html_erb___1544847121005492756_70348935195400'
+Started GET "/" for 127.0.0.1 at 2018-07-20 19:40:06 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.3ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.9ms)
+Completed 500 Internal Server Error in 24ms (ActiveRecord: 0.3ms)
+
+
+  
+ActionView::Template::Error (require_tree argument must be a directory):
+     6: 
+     7:     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     8:     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous">
+     9:     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    10: 
+    11:     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    12: 
+  
+app/assets/javascripts/cable.js:6
+app/views/layouts/application.html.erb:9:in `_app_views_layouts_application_html_erb___1544847121005492756_70348958023880'
+Started GET "/" for 127.0.0.1 at 2018-07-20 19:52:38 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.3ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.3ms)
+  Rendered shared/_navbar.html.erb (0.9ms)
+Completed 200 OK in 298ms (Views: 294.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 19:52:42 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.9ms)
+  Rendered shared/_navbar.html.erb (0.6ms)
+Completed 200 OK in 33ms (Views: 28.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 19:52:43 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.6ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 37ms (Views: 32.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 19:52:44 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (2.7ms)
+  Rendered shared/_navbar.html.erb (0.6ms)
+Completed 200 OK in 40ms (Views: 36.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:04:27 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.7ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 33ms (Views: 29.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:04:32 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.6ms)
+  Rendered shared/_navbar.html.erb (0.7ms)
+Completed 200 OK in 28ms (Views: 24.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:04:33 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.6ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (2.9ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 41ms (Views: 36.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:04:34 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.5ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 30ms (Views: 25.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:04:35 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.4ms)
+  Rendered shared/_navbar.html.erb (0.6ms)
+Completed 200 OK in 37ms (Views: 31.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:04:40 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.7ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 29ms (Views: 25.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-07-20 20:08:59 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (65.3ms)
+  Rendered shared/_navbar.html.erb (0.4ms)
+Completed 200 OK in 128ms (Views: 100.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2018-07-20 20:09:05 -0400
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (2.4ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (7.7ms)
+  Rendered shared/_navbar.html.erb (0.6ms)
+Completed 200 OK in 38ms (Views: 37.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2018-07-20 20:10:03 -0400
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Cg+2otE9NVsKWB3j1I9IM/3v0iO4t8SJVVwLtq+p8jSQ6mfo1CgiI9iDNfc11ni6l4t5wofFuvnncBZC9BgR6Q==", "user"=>{"name"=>"bastian01@gmail.com", "username"=>"bastian00@gmail.com", "email"=>"bastianort@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+Unpermitted parameters: :name, :username
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "bastianort@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "bastianort@gmail.com"], ["encrypted_password", "$2a$11$x.5paJsWaf6Cro02lT1lYOIy0JAIHN9e8YO0YSU32GIizG33J49n."], ["created_at", "2018-07-21 00:10:03.412961"], ["updated_at", "2018-07-21 00:10:03.412961"]]
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "sign_in_count" = ?, "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["sign_in_count", 1], ["current_sign_in_at", "2018-07-21 00:10:03.418231"], ["last_sign_in_at", "2018-07-21 00:10:03.418231"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2018-07-21 00:10:03.418866"], ["id", 1]]
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 221ms (ActiveRecord: 5.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:10:03 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.4ms)
+  Rendered shared/_navbar.html.erb (0.6ms)
+Completed 200 OK in 41ms (Views: 38.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:26:50 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.5ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (4.9ms)
+Completed 200 OK in 38ms (Views: 31.9ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2018-07-20 20:26:53 -0400
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"iKHqPehsPz2wdZXz0N78je8a4+/L69RDFUmXmNamKsoSRDt37XkoRWKuvecxh8wEhX5IDvSZqjOnZYpsjRfJFw=="}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 12ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:26:53 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.8ms)
+  Rendered shared/_navbar.html.erb (1.8ms)
+Completed 200 OK in 31ms (Views: 28.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-07-20 20:26:58 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (6.0ms)
+  Rendered shared/_navbar.html.erb (0.8ms)
+Completed 200 OK in 42ms (Views: 39.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2018-07-20 20:27:07 -0400
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"dnaIcKSEM1aMT9RolrL2Q8EG3Ezgbyjn2lCzXk+7pJoUlswgsCm6xy4virSeP6335D+zlPbX5TtCp+unAdI2oA==", "user"=>{"email"=>"bastianort@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "bastianort@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2018-07-21 00:27:07.769517"], ["sign_in_count", 2], ["updated_at", "2018-07-21 00:27:07.770311"], ["id", 1]]
+  [1m[35m (1.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 189ms (ActiveRecord: 2.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:27:07 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.6ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (2.6ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (2.8ms)
+Completed 200 OK in 42ms (Views: 38.6ms | ActiveRecord: 0.9ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2018-07-20 20:27:10 -0400
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"XpnFmcjb2chs+p3tsBvR6Ci58/PlywNlpEvWjxJmsZoK7Pj66/k2mFVuASBG+qOgVbBvB+sOxxSqW6+mCTQWBg=="}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 4ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:27:10 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.7ms)
+  Rendered shared/_navbar.html.erb (0.8ms)
+Completed 200 OK in 32ms (Views: 29.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:31:30 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.5ms)
+  Rendered shared/_navbar.html.erb (1.2ms)
+Completed 200 OK in 28ms (Views: 24.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-07-20 20:57:28 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (5.5ms)
+  Rendered shared/_navbar.html.erb (2.2ms)
+Completed 200 OK in 42ms (Views: 40.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2018-07-20 20:57:35 -0400
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gYFjyTswWFu1mj3IQ18KSKPAlWJblY1AKvKc/m+55l2ISwRDrQFJTaWkTbbsnZhMAg2SsBf2W6WpDqXI849hVA==", "user"=>{"email"=>"bastianort@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "bastianort@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2018-07-21 00:57:35.591033"], ["last_sign_in_at", "2018-07-21 00:27:07.769517"], ["sign_in_count", 3], ["updated_at", "2018-07-21 00:57:35.591888"], ["id", 1]]
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 176ms (ActiveRecord: 2.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:57:35 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (2.6ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (2.7ms)
+Completed 200 OK in 40ms (Views: 36.1ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-07-20 20:57:38 -0400
+Processing by HistoriesController#new as HTML
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (7.9ms)
+  Rendered histories/new.html.erb within layouts/application (10.4ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (2.4ms)
+Completed 200 OK in 51ms (Views: 40.6ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 20:57:48 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ESrJmtG5MszqXgM+bEiCIT3upJdqpOC8piwHJptMKNaYXDuN7bCKgIBcMc3jBtv0fBIijFqOQNEqlFhzJaaTrQ==", "history"=>{"title"=>"hola", "remote_picture_url"=>"hola", "picture_cache"=>"", "content"=>"hola"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (4.0ms)
+  Rendered histories/new.html.erb within layouts/application (6.3ms)
+  Rendered shared/_navbar.html.erb (0.6ms)
+Completed 200 OK in 50ms (Views: 31.2ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 20:57:56 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GlvhoVEtz016MA4VZXs/jcRTUyi0rntLKQduX1mWoLosquoPiTWQ+wpwQgotil9rgPLudGhUWxnt+kN0pMHdgg==", "history"=>{"title"=>"hola", "remote_picture_url"=>"hola.com", "picture_cache"=>"", "content"=>"hola"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (3.0ms)
+  Rendered histories/new.html.erb within layouts/application (5.9ms)
+  Rendered shared/_navbar.html.erb (0.9ms)
+Completed 200 OK in 37ms (Views: 33.0ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 20:58:07 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ub4G86u0YHq3H5PZgzqbem/6XllV4JGa0IW6TiJWfp+PTw1dc6w/zMdf38bLy/ucK1vjBYkascgUeJdl3wEDpw==", "history"=>{"title"=>"hola", "remote_picture_url"=>"hola.com", "picture_cache"=>"", "content"=>"hola como"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (2.3ms)
+  Rendered histories/new.html.erb within layouts/application (5.2ms)
+  Rendered shared/_navbar.html.erb (0.7ms)
+Completed 200 OK in 49ms (Views: 43.1ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 20:59:00 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"prD/+ruS38evapl248C4ue7+3MLp29dGVUWaWKFAk12QQfRUY4qAcd8q1WmrMdhfql9hnjUh9xSRuLdzXBfuZQ==", "history"=>{"title"=>"hola", "remote_picture_url"=>"https://desafios.s3.amazonaws.com/uploads/guide/guide/1023/s_15_Autenticacio%CC%81n.pdf?X-Amz-Expires=60000&X-Amz-Date=20180721T001319Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJQ77P3ZFMZDQY24Q/20180721/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=93d5468fd346f0ea428932e6a90d2bb290327e34d075b27e41c1be5a0bf72c24", "picture_cache"=>"", "content"=>"hola como"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (9.5ms)
+  Rendered histories/new.html.erb within layouts/application (14.6ms)
+  Rendered shared/_navbar.html.erb (1.3ms)
+Completed 200 OK in 3389ms (Views: 69.1ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 20:59:10 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (1.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (2.1ms)
+Completed 200 OK in 33ms (Views: 29.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-07-20 20:59:14 -0400
+Processing by HistoriesController#new as HTML
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (2.6ms)
+  Rendered histories/new.html.erb within layouts/application (5.2ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (2.0ms)
+Completed 200 OK in 42ms (Views: 38.1ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:00:03 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"o1hXbGNq0sbvvMqhSRXU0oIoWctbkSZqhy1R9vRBof0qLqV7X2NqioW++FLGW40Hw9Tf0Gu7hgcLlQ6jSqsahg==", "history"=>{"title"=>"historia 1", "remote_picture_url"=>"http://www.historia.com", "picture_cache"=>"", "content"=>"hola"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (5.3ms)
+  Rendered histories/new.html.erb within layouts/application (8.7ms)
+  Rendered shared/_navbar.html.erb (1.5ms)
+Completed 200 OK in 2160ms (Views: 47.0ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:04:52 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"kV/3Jco+QKmDbXepDatZOAPmYF7a3CEKwaGWcLgdm72nrvyLEiYfH/MtO7ZFWjneR0fdAgYmAVgFXLtbRUrmhQ==", "history"=>{"title"=>"historia 1", "remote_picture_url"=>"http://www.historia.com", "picture_cache"=>"", "content"=>"hola"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (3.2ms)
+  Rendered histories/new.html.erb within layouts/application (6.6ms)
+  Rendered shared/_navbar.html.erb (0.6ms)
+Completed 200 OK in 1680ms (Views: 32.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:14:11 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"bHPC+hBVDrSsrxXrGL7icRSyaG5tQs5rzzzmmDIBUl9agslUyE1RAtzvWfRQT4KXUBPVMrG47jkLwcuzz1YvZw==", "history"=>{"title"=>"historia 1", "remote_picture_url"=>"http://www.historia.com", "picture_cache"=>"", "content"=>"hola"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (3.8ms)
+  Rendered histories/new.html.erb within layouts/application (6.3ms)
+  Rendered shared/_navbar.html.erb (0.6ms)
+Completed 200 OK in 1766ms (Views: 31.1ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:14:50 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"YDrFhpDTQ2bXZB7YubXxTEPJli93fd7f3adruKWonqtWy84oSMsc0KckUsfxRJGqB2grc6uH/o0ZWkaTWP/jkw==", "history"=>{"title"=>"historia 1", "remote_picture_url"=>"https://www.petdarling.com/articulos/wp-content/uploads/2014/11/eliminar-pis-de-gato.jpg", "picture_cache"=>"", "content"=>"hola"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (3.4ms)
+  Rendered histories/new.html.erb within layouts/application (9.3ms)
+  Rendered shared/_navbar.html.erb (1.1ms)
+Completed 200 OK in 340ms (Views: 51.8ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:14:56 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"VCQ0gA0YbYI0XtdNGmI/aPdq9wUhZaZ8weTB5fc1KQxi1T8u1QAyNEQem1JSk1+Os8tKWf2fhi4FGezOCmJUNA==", "history"=>{"title"=>"historia 1", "remote_picture_url"=>"https://www.petdarling.com/articulos/wp-content/uploads/2014/11/eliminar-pis-de-gato.jpg", "picture_cache"=>"1532135690-1282-0005-3058/eliminar-pis-de-gato.jpg", "content"=>"hola"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (5.3ms)
+  Rendered histories/new.html.erb within layouts/application (11.9ms)
+  Rendered shared/_navbar.html.erb (0.9ms)
+Completed 200 OK in 369ms (Views: 66.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/histories" for 127.0.0.1 at 2018-07-20 21:16:28 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.3ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (6.4ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (41.0ms)
+Completed 200 OK in 105ms (Views: 90.7ms | ActiveRecord: 4.5ms)
+
+
+Started GET "/histories" for 127.0.0.1 at 2018-07-20 21:16:53 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (6.7ms)
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (34.5ms)
+Completed 200 OK in 351ms (Views: 324.8ms | ActiveRecord: 2.9ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-07-20 21:16:54 -0400
+Processing by HistoriesController#new as HTML
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (17.5ms)
+  Rendered histories/new.html.erb within layouts/application (21.9ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (1.7ms)
+Completed 200 OK in 61ms (Views: 46.6ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:17:01 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"KsX6+UDuHh4iVk3PaHA1y5aPxUWSLTNMX7YEksqg0HqjswjufOemUkhUfzznPmwe13NDXqIHkyHTDlvHdEprAQ==", "history"=>{"title"=>"historia 1", "remote_picture_url"=>"https://www.petdarling.com/articulos/wp-content/uploads/2014/11/eliminar-pis-de-gato.jpg", "picture_cache"=>"", "content"=>"hols"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (5.1ms)
+  Rendered histories/new.html.erb within layouts/application (10.1ms)
+  Rendered shared/_navbar.html.erb (1.2ms)
+Completed 200 OK in 374ms (Views: 48.0ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:17:04 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JC/vP7/Mns0rzVSTtsya1nugi/8ywL53Dk2+Ay1yqCYS3uSRZ9TBe1uNGIz+PfowPwE2o+46niXKsJMo0CXVHg==", "history"=>{"title"=>"historia 1", "remote_picture_url"=>"https://www.petdarling.com/articulos/wp-content/uploads/2014/11/eliminar-pis-de-gato.jpg", "picture_cache"=>"1532135821-1901-0001-3508/eliminar-pis-de-gato.jpg", "content"=>"hols"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (13.1ms)
+  Rendered histories/new.html.erb within layouts/application (18.5ms)
+  Rendered shared/_navbar.html.erb (1.2ms)
+Completed 200 OK in 832ms (Views: 73.7ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/histories" for 127.0.0.1 at 2018-07-20 21:17:37 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.1ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (3.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (25.7ms)
+Completed 200 OK in 62ms (Views: 53.8ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-07-20 21:17:39 -0400
+Processing by HistoriesController#new as HTML
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (18.7ms)
+  Rendered histories/new.html.erb within layouts/application (21.1ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (2.1ms)
+Completed 200 OK in 58ms (Views: 43.4ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:17:46 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"1z7Jwr54IbmHL4rqK5OjnD/XSNWnxnOi4qr4a0Jk+CdeSDvVgnGZ9e0tuBmk3fpJfivOzpfs089uEqc+/I5DXA==", "history"=>{"title"=>"historia 1", "remote_picture_url"=>"https://www.petdarling.com/articulos/wp-content/uploads/2014/11/eliminar-pis-de-gato.jpg", "picture_cache"=>"", "content"=>"hola"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 285ms (ActiveRecord: 0.5ms)
+
+
+  
+RuntimeError ():
+  
+app/controllers/histories_controller.rb:29:in `create'
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:17:52 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:17:58 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:18:06 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:19:23 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:19:32 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:19:36 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:19:38 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:19:43 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:19:52 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:19:53 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:19:56 -0400
+Started PUT "/__web_console/repl_sessions/ca6d146bf0e4060c2ffc2afdf8f4b7a5" for 127.0.0.1 at 2018-07-20 21:19:56 -0400
+Started GET "/histories" for 127.0.0.1 at 2018-07-20 21:20:36 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (4.2ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (33.3ms)
+Completed 200 OK in 71ms (Views: 64.3ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-07-20 21:20:38 -0400
+Processing by HistoriesController#new as HTML
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (4.8ms)
+  Rendered histories/new.html.erb within layouts/application (7.8ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (1.9ms)
+Completed 200 OK in 58ms (Views: 40.4ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:20:52 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wohL2W0qyWPbjOPHaRDWMp6vuYL3iVLa8/+aWUtxBnhL/rnOUSNxL7GO0TTmXo/n31M/mcej8rd/R8UM9Zu9Aw==", "history"=>{"title"=>"hola", "remote_picture_url"=>"https://www.petdarling.com/articulos/wp-content/uploads/2014/11/eliminar-pis-de-gato.jpg", "picture_cache"=>"", "content"=>"hola"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "histories" ("title", "picture", "content", "created_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "hola"], ["picture", "eliminar-pis-de-gato.jpg"], ["content", "hola"], ["created_at", "2018-07-21 01:20:53.125957"], ["updated_at", "2018-07-21 01:20:53.125957"], ["user_id", 1]]
+  [1m[35m (2.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/histories/1
+Completed 302 Found in 547ms (ActiveRecord: 6.6ms)
+
+
+Started GET "/histories/1" for 127.0.0.1 at 2018-07-20 21:20:53 -0400
+Processing by HistoriesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mHistory Load (0.7ms)[0m  [1m[34mSELECT  "histories".* FROM "histories" WHERE "histories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering histories/show.html.erb within layouts/application
+  Rendered histories/show.html.erb within layouts/application (5.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (2.9ms)
+Completed 200 OK in 110ms (Views: 100.5ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/histories" for 127.0.0.1 at 2018-07-20 21:20:57 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (2.6ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered shared/_navbar.html.erb (2.7ms)
+Completed 200 OK in 39ms (Views: 33.7ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2018-07-20 21:21:03 -0400
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"4iw2WAeMZZVeETmZua8SNLfXHdvPsXeyZr1MV6M3ukvU3T3235Q6Iy5RdYbxXnLS83aghxNLV+CiQGF8XmDHcw=="}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 12ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-07-20 21:21:03 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (3.0ms)
+  Rendered shared/_navbar.html.erb (5.6ms)
+Completed 200 OK in 37ms (Views: 33.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-07-20 21:21:10 -0400
+Processing by HistoriesController#new as HTML
+  Rendering histories/new.html.erb within layouts/application
+  Rendered histories/_form.html.erb (2.1ms)
+  Rendered histories/new.html.erb within layouts/application (4.4ms)
+  Rendered shared/_navbar.html.erb (0.7ms)
+Completed 200 OK in 40ms (Views: 35.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:21:18 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"is2cbLrPy+WDN+KUsgR5h50/cx3GvAVAtd/bygDao7XJu8OrOlt/ZlcARiLOFFLh6AlM2wUVQiC7oWQ7w7gyiA==", "history"=>{"title"=>"hola2", "remote_picture_url"=>"https://www.petdarling.com/articulos/wp-content/uploads/2014/11/eliminar-pis-de-gato.jpg", "picture_cache"=>"", "content"=>"hola2"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+Completed 500 Internal Server Error in 286ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `id' for nil:NilClass):
+  
+app/controllers/histories_controller.rb:28:in `create'
+Started POST "/histories" for 127.0.0.1 at 2018-07-20 21:21:27 -0400
+Processing by HistoriesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"is2cbLrPy+WDN+KUsgR5h50/cx3GvAVAtd/bygDao7XJu8OrOlt/ZlcARiLOFFLh6AlM2wUVQiC7oWQ7w7gyiA==", "history"=>{"title"=>"hola2", "remote_picture_url"=>"https://www.petdarling.com/articulos/wp-content/uploads/2014/11/eliminar-pis-de-gato.jpg", "picture_cache"=>"", "content"=>"hola2"}, "commit"=>"Enviar"}
+Unpermitted parameter: :picture_cache
+Completed 500 Internal Server Error in 278ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `id' for nil:NilClass):
+  
+app/controllers/histories_controller.rb:28:in `create'
+Started GET "/histories" for 127.0.0.1 at 2018-07-20 21:23:28 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (23.1ms)
+  Rendered shared/_navbar.html.erb (1.3ms)
+Completed 200 OK in 74ms (Views: 65.7ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-07-20 21:23:29 -0400
+Processing by HistoriesController#new as HTML
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-07-20 21:23:29 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.1ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (18.4ms)
+  Rendered shared/_navbar.html.erb (1.5ms)
+Completed 200 OK in 68ms (Views: 45.0ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/histories/new" for 127.0.0.1 at 2018-07-20 21:23:33 -0400
+Processing by HistoriesController#new as HTML
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-07-20 21:23:33 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (6.2ms)
+  Rendered shared/_navbar.html.erb (0.8ms)
+Completed 200 OK in 34ms (Views: 32.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/histories/1" for 127.0.0.1 at 2018-07-20 21:23:42 -0400
+Processing by HistoriesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mHistory Load (0.3ms)[0m  [1m[34mSELECT  "histories".* FROM "histories" WHERE "histories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering histories/show.html.erb within layouts/application
+  Rendered histories/show.html.erb within layouts/application (2.3ms)
+  Rendered shared/_navbar.html.erb (0.8ms)
+Completed 200 OK in 41ms (Views: 36.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/histories/1/edit" for 127.0.0.1 at 2018-07-20 21:23:46 -0400
+Processing by HistoriesController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mHistory Load (0.3ms)[0m  [1m[34mSELECT  "histories".* FROM "histories" WHERE "histories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering histories/edit.html.erb within layouts/application
+  Rendered histories/_form.html.erb (2.7ms)
+  Rendered histories/edit.html.erb within layouts/application (7.4ms)
+  Rendered shared/_navbar.html.erb (0.9ms)
+Completed 200 OK in 39ms (Views: 32.7ms | ActiveRecord: 0.3ms)
+
+
+Started DELETE "/histories/1" for 127.0.0.1 at 2018-07-20 21:24:07 -0400
+Processing by HistoriesController#destroy as HTML
+  Parameters: {"authenticity_token"=>"pcLv4+jxIE3mAtu2BhtevBHVHx4f5EAp2GJCl8KxiwCG1RMXaWNjUEZyO0S28aaqNPaIrE8yTR73N5VFpxawPQ==", "id"=>"1"}
+  [1m[36mHistory Load (0.4ms)[0m  [1m[34mSELECT  "histories".* FROM "histories" WHERE "histories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 401 Unauthorized in 39ms (ActiveRecord: 2.1ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2018-07-20 21:24:07 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (6.3ms)
+  Rendered shared/_navbar.html.erb (1.4ms)
+Completed 200 OK in 56ms (Views: 33.5ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/histories" for 127.0.0.1 at 2018-07-20 21:24:11 -0400
+Processing by HistoriesController#index as HTML
+  Rendering histories/index.html.erb within layouts/application
+  [1m[36mHistory Load (0.2ms)[0m  [1m[34mSELECT "histories".* FROM "histories"[0m
+  Rendered histories/index.html.erb within layouts/application (2.8ms)
+  Rendered shared/_navbar.html.erb (0.8ms)
+Completed 200 OK in 32ms (Views: 28.0ms | ActiveRecord: 0.2ms)
+
+
